@@ -6,21 +6,19 @@ use App\Models\Superheroe;
 use Illuminate\Http\Request; 
 
 class SuperheroController extends Controller
-
 {
-
     public function index()
     {
         $superheroes = Superheroe::all();
-        return view('index', compact('superheroes'));
-    }
+        $showAlert = false; // Set $showAlert to false by default
 
+        return view('index', compact('superheroes', 'showAlert'));
+    }
 
     public function create()
     {
         return view('create');
     }
-
 
     public function store(Request $request)
     {
@@ -32,9 +30,14 @@ class SuperheroController extends Controller
         ]);
 
         Superheroe::create($validatedData);
-        return redirect('/superheroes')->with('success', 'Superhero added successfully!');
-    }
 
+        // Set $showAlert to true
+        $showAlert = true;
+
+        // Pass $showAlert and $superheroes to the view
+        $superheroes = Superheroe::all();
+        return redirect()->route('superheroes.index')->with('superhero_created', true);
+    }
 
     public function show($id)
     {
@@ -61,12 +64,16 @@ class SuperheroController extends Controller
         return redirect('/superheroes')->with('success', 'Superhero updated successfully!');
     }
 
-
     public function destroy($id)
     {
         $superheroe = Superheroe::findOrFail($id);
         $superheroe->delete();
 
-        return back()->with('success', 'Superhero deleted successfully!');
+        // Set $showAlert to true
+        $showAlert = true;
+
+        // Pass $showAlert and $superheroes to the view
+        $superheroes = Superheroe::all();
+        return view('index', compact('superheroes', 'showAlert'));
     }
 }

@@ -3,19 +3,16 @@
 
 @section('content')
     <h1>Superheroes List</h1>
+    @includeWhen(session('superhero_created'), 'partials.notification', ['message' => 'Se a creado un nuevo superheroe :D'])
+
     <a href="{{ route('superheroes.create') }}">Add New Superhero</a>
+
     <ul>
-        @foreach ($superheroes as $superhero)
-            <li>
-                {{ $superhero->hero_name }} ({{ $superhero->real_name }})
-                <a href="{{ route('superheroes.show', $superhero->id) }}">View</a>
-                <a href="{{ route('superheroes.edit', $superhero->id) }}">Edit</a>
-                <form action="{{ route('superheroes.destroy', $superhero->id) }}" method="POST" style="display:inline">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit">Delete</button>
-                </form>
-            </li>
-        @endforeach
+        @each('partials.superhero', $superheroes, 'superhero')
     </ul>
+
+    <script>
+        var superheroes = @json($superheroes);
+        console.log(superheroes);
+    </script>
 @endsection
