@@ -1,4 +1,4 @@
-<li>
+<li class='super'>
     {{ $superhero->hero_name }} ({{ $superhero->real_name }})
     <a href="{{ route('superheroes.show', $superhero->id) }}">View</a>
     <a href="{{ route('superheroes.edit', $superhero->id) }}">Edit</a>

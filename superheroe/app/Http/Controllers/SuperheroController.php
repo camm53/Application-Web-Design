@@ -20,6 +20,15 @@ class SuperheroController extends Controller
         return view('create');
     }
 
+    public function home()
+    {
+        return view('home');
+    }
+    public function about()
+    {
+        return view('about');
+    }
+    
     public function store(Request $request)
     {
         $validatedData = $request->validate([

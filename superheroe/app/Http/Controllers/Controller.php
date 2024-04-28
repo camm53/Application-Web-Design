@@ -25,7 +25,14 @@ class Controller extends \Illuminate\Routing\Controller
     {
         return view('superheroes.create');
     }
-
+    public function home()
+    {
+        return view('superheroes.home');
+    }
+    public function about()
+    {
+        return view('about');
+    }
     /**
      * Store a newly created superhero in storage.
      *
